@@ -25,6 +25,7 @@
    "dependencies": {
       "@gql2ts/from-schema": "^2.0.0-4",
       "@types/yup": "^0.29.11",
+      "axios": "^0.21.1",
       "bcryptjs": "^2.4.3",
       "connect-redis": "^5.1.0",
       "express-session": "^1.17.1",
@@ -46,7 +47,7 @@
    },
    "scripts": {
       "start": "NODE_ENV=development nodemon --exec  ts-node --files src/index.ts",
-      "test": "NODE_ENV=test jest --detectOpenHandles --watch",
+      "test": "NODE_ENV=test jest --detectOpenHandles --watch --runInBand",
       "gen-schema-types": "ts-node  --files src/scripts/createTypes.ts"
    }
 }

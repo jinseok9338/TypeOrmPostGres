@@ -57,11 +57,11 @@ export const resolvers: ResolverMap = {
         ];
       }
 
-      const hashedPassword = await bcrypt.hash(password, 10);
+    
       const user = User.create({
     
         email,
-        password: hashedPassword
+        password
       });
 
       await user.save();

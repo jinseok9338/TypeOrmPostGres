@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { GraphQLServer } from "graphql-yoga";
 import { redis } from "./redis";
  import { createTypeormConn } from "./utils/createTypeormConnection";
@@ -41,7 +42,7 @@ export const startServer = async () => {
 
   const cors = {
     credentials: true,
-    origin: process.env.FRONT_END_HOST 
+    origin: process.env.NODE_ENV == "test" ? "*" : process.env.FRONT_END_HOST
   };
 
 

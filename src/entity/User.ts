@@ -2,8 +2,11 @@ import {
     Entity,
     Column,
     BaseEntity,
-    PrimaryGeneratedColumn
+    PrimaryGeneratedColumn,
+    BeforeInsert
   } from "typeorm";
+
+  import * as bcrypt from "bcryptjs"
  
 
   
@@ -20,6 +23,11 @@ import {
 
     @Column("boolean", { default: false })
     confirmed!: boolean;
+
+    @BeforeInsert()
+    async hashPassword() {
+      this.password = await bcrypt.hash(this.password, 10);
+    }
   
   
   }
