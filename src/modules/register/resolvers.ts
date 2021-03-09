@@ -10,6 +10,8 @@ import {
   passwordNotLongEnough
 } from "./errorMessages";
 import { createConfirmEmailLink } from "../../utils/createConfirmEmialLink";
+import { sendEmail } from "../../utils/sendEmail";
+ 
 
 const schema = yup.object().shape({
   email: yup
@@ -30,7 +32,7 @@ export const resolvers: ResolverMap = {
   Mutation: {
     register: async (
       _,
-      args: GQL.IRegisterOnMutationArguments,
+      args:  GQL.IRegisterOnMutationArguments,
       { redis, url }
     ) => {
       try {
@@ -57,13 +59,19 @@ export const resolvers: ResolverMap = {
 
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = User.create({
+    
         email,
         password: hashedPassword
       });
 
       await user.save();
 
-      const link = await createConfirmEmailLink(url, user.id, redis);
+      if (process.env.NODE_ENV !== "test") {
+        await sendEmail(
+          email,
+          await createConfirmEmailLink(url, user.id, redis)
+        );
+      }
 
       return null;
     }
