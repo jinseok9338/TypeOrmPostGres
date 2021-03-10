@@ -1,5 +1,5 @@
 module.exports = {
-  "globalSetup": "./src/testSetup/callSetup.js",
+  "globalSetup": "./src/testUtils/callSetup.js",
   "transform": {
     "^.+\\.tsx?$": "ts-jest"
   },
